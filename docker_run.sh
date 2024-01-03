@@ -37,7 +37,7 @@ docker run -d -it --restart=always -p 8022:80 -v ~/Filebrowser/:/srv --name file
 
 #mongo
 docker rm -f mongo
-docker run -it -d --restart=always -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 --name mongo mongo
+docker run -it -d --restart=always -p 27017:27017 -v ./data/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 --name mongo mongo
 
 #kafka-ui
 # --add-host host.docker.internal:host-gateway
