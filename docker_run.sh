@@ -15,22 +15,21 @@
 #nginx
 docker rm -f nginx
 docker run -d -it --restart=always -p 80:80 -p 443:443 \
--v /Users/wifi/Code/php/lucy:/var/www/coinfloww/lucy \
--v /Users/wifi/Code/docker_run/nginx/project.conf:/etc/nginx/conf.d/project.conf \
--v /Users/wifi/Code/docker_run/nginx/ssl:/data/ssl \
--v /Users/wifi/Code/docker_run/nginx/project:/data/project \
+-v ./nginx/project.conf:/etc/nginx/conf.d/project.conf \
+-v ./nginx/ssl:/data/ssl \
+-v ./nginx/project:/data/project \
 --name nginx nginx
 
 #mysql
 docker rm -f mysql
-docker run -d -it --restart=always -p 3306:3306 -v /Users/wifi/Code/docker_run/data/mysql:/var/lib/mysql  --env MYSQL_ROOT_PASSWORD=123456 --name mysql mysql
+docker run -d -it --restart=always -p 3306:3306 -v ./data/mysql:/var/lib/mysql  --env MYSQL_ROOT_PASSWORD=123456 --name mysql mysql
 
 #redis
 docker rm -f redis
-docker run -d -it --restart=always -p 6379:6379 -v /Users/wifi/Code/docker_run/redis/redis.conf:/usr/local/etc/redis/redis.conf -v /Users/wifi/Code/docker_run/data/redis:/data --name redis redis
+docker run -d -it --restart=always -p 6379:6379 -v ./redis/redis.conf:/usr/local/etc/redis/redis.conf -v ./data/redis:/data --name redis redis
 
 docker rm -f redis-stack
-docker run -d -it --restart=always -p 6379:6379 -v /Users/wifi/Code/docker_run/redis/redis.conf:/usr/local/etc/redis/redis.conf -v /Users/wifi/Code/docker_run/data/redis:/data --name redis-stack redis/redis-stack-server
+docker run -d -it --restart=always -p 6379:6379 -v ./redis/redis.conf:/usr/local/etc/redis/redis.conf -v ./data/redis:/data --name redis-stack redis/redis-stack
 
 #filebrowser
 docker rm -f filebrowser
@@ -39,3 +38,7 @@ docker run -d -it --restart=always -p 8022:80 -v ~/Filebrowser/:/srv --name file
 #mongo
 docker rm -f mongo
 docker run -it -d --restart=always -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 --name mongo mongo
+
+#kafka-ui
+# --add-host host.docker.internal:host-gateway
+docker run -it -d --restart=always -p 8080:8080 -e DYNAMIC_CONFIG_ENABLED=true --name kafka-ui provectuslabs/kafka-ui
