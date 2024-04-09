@@ -45,4 +45,4 @@ docker run -it -d --restart=always -p 8080:8080 -e DYNAMIC_CONFIG_ENABLED=true -
 
 #noco
 docker rm -f nocodb-mysql
-docker run -it -d --restart=always -p 8081:8081 -v ~/Code/docker_run/data/nocodb:/usr/app/data/ --name nocodb-mysql nocodb/nocodb:latest
+docker run -it -d --restart=always -p 8081:8080 -v ~/Code/docker_run/data/nocodb:/usr/app/data/ --name nocodb-mysql nocodb/nocodb:latest
