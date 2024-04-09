@@ -42,3 +42,7 @@ docker run -it -d --restart=always -p 27017:27017 -v ./data/mongo:/data/db -e MO
 #kafka-ui
 # --add-host host.docker.internal:host-gateway
 docker run -it -d --restart=always -p 8080:8080 -e DYNAMIC_CONFIG_ENABLED=true --name kafka-ui provectuslabs/kafka-ui
+
+#noco
+docker rm -f nocodb-mysql
+docker run -it -d --restart=always -p 8080:8080 -v ~/Code/docker_run/data/nocodb:/usr/app/data/ --name nocodb-mysql nocodb/nocodb:latest
