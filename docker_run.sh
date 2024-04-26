@@ -15,7 +15,7 @@
 #nginx
 docker rm -f nginx
 docker run -d -it --restart=always -p 80:80 -p 443:443 \
--v ./nginx/project.conf:/etc/nginx/conf.d/project.conf \
+-v ./nginx/conf.d:/etc/nginx/conf.d \
 -v ./nginx/ssl:/data/ssl \
 -v ./nginx/project:/data/project \
 --name nginx nginx
@@ -29,7 +29,7 @@ docker rm -f redis
 docker run -d -it --restart=always -p 6379:6379 -v ./redis/redis.conf:/usr/local/etc/redis/redis.conf -v ./data/redis:/data --name redis redis
 
 docker rm -f redis-stack
-docker run -d -it --restart=always -p 6379:6379 -v ./redis/redis.conf:/usr/local/etc/redis/redis.conf -v ./data/redis:/data --name redis-stack redis/redis-stack
+docker run -d -it --restart=always -p 6379:6379 -v ./redis/redis.conf:/usr/local/etc/redis/redis.conf -v ./data/redis:/data --name redis-stack redis/redis-stack-server
 
 #filebrowser
 docker rm -f filebrowser
