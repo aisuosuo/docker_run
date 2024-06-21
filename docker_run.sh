@@ -46,3 +46,34 @@ docker run -it -d --restart=always -p 8080:8080 -e DYNAMIC_CONFIG_ENABLED=true -
 #noco
 docker rm -f nocodb-mysql
 docker run -it -d --restart=always -p 8081:8080 -v ~/Code/docker_run/data/nocodb:/usr/app/data/ --name nocodb-mysql nocodb/nocodb:latest
+
+
+# linux
+/home/ubuntu/data/docker/nginx
+docker run -d -it --restart=always -p 3306:3306 -v /data/docker/mysql:/var/lib/mysql  --env MYSQL_ROOT_PASSWORD=wangfeng --name mysql mysql
+docker run -d -it --restart=always -p 6379:6379 -v /data/docker/redis:/data  --name redis redis --requirepass "wangfeng"
+
+docker run -d -it --restart=always -p 80:80 -p 443:443 \
+--add-host host.docker.internal:host-gateway \
+-v /data/docker/nginx/conf.d:/etc/nginx/conf.d \
+-v /data/docker/nginx:/data \
+--name nginx nginx
+
+docker run -d -it --restart=always -p 8022:80 -v ~/Filebrowser/:/srv --name filebrowser filebrowser/filebrowser
+
+# add systemctl
+#[Unit]
+ #Description=Harbridgecrypto Admin Server
+ #
+ #[Service]
+ #WorkingDirectory=/data/server/admin-server
+ #ExecStart=/data/server/admin-server/admin-server
+ #User=ubuntu
+ #Type=simple
+ #Restart=always
+ #RestartSec=5s
+ #StandardOutput=null
+ #Environment=ENV_NAME=prod
+ #
+ #[Install]
+ #WantedBy=multi-user.target
